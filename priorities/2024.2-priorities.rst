@@ -1,7 +1,0 @@
-.. _dalmatian-themes:
-
-=============================
-2024.2 Dalmatian Cycle Themes
-=============================
-
-.. todo:: fill this in after the PTG

@@ -1,7 +1,0 @@
-.. _flamingo-themes:
-
-============================
-2025.2 Flamingo Cycle Themes
-============================
-
-.. todo:: fill this in after the PTG

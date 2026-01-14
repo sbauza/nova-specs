@@ -14,19 +14,6 @@ on for the upcoming release. This is the output of those discussions:
    :glob:
    :maxdepth: 1
 
-   priorities/2026.1-priorities
-   priorities/2025.2-priorities
-   priorities/2025.1-priorities
-   priorities/2024.2-priorities
-   priorities/2024.1-priorities
-   priorities/2023.2-priorities
-   priorities/2023.1-priorities
-   priorities/zed-priorities
-   priorities/yoga-priorities
-   priorities/xena-priorities
-   priorities/wallaby-priorities
-   priorities/victoria-priorities
-   priorities/ussuri-priorities
    priorities/train-priorities
    priorities/stein-priorities
    priorities/rocky-priorities
@@ -47,6 +34,7 @@ Here you can find the specs, and spec template, for each release:
    :glob:
    :maxdepth: 1
 
+   specs/2026.2/index
    specs/2026.1/index
    specs/2025.2/index
    specs/2025.1/index

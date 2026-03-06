@@ -1,0 +1,7 @@
+approved/async-volume-attachments.rst ../implemented/async-volume-attachments.rst
+approved/flavor-search-by-name.rst ../implemented/flavor-search-by-name.rst
+approved/libvirt-firmware-auto-selection.rst ../implemented/libvirt-firmware-auto-selection.rst
+approved/nova-services-graceful-shutdown-part1.rst ../implemented/nova-services-graceful-shutdown-part1.rst
+approved/openapi.rst ../implemented/openapi.rst
+approved/remove-os-volumes-boot-api.rst ../implemented/remove-os-volumes-boot-api.rst
+approved/vtpm-live-migration.rst ../implemented/vtpm-live-migration.rst

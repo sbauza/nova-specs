@@ -131,7 +131,7 @@ to specify what level of security they require, and operators need to specify
 what level of security they're willing to support. There also needs to be a
 default level applied to an instance if nothing is explicitly specified.
 
-Three possible security levels are proposed. They are presented in the table
+Two possible security levels are proposed. They are presented in the table
 below.
 
 .. list-table:: ``tpm_secret_security`` values
@@ -158,13 +158,6 @@ below.
        Security over the wire is left as the operator's responsibility, but TLS
        or similar is assumed. The instance can also be restarted by Nova in the
        event of a compute host crash or reboot for the exact same reason.
-   * - ``deployment``
-     - The Nova service user owns the Barbican secret.
-     - This is the least secure but most flexible option.
-     - The instance can be live migrated because Nova can download the secret
-       from Barbican and define it in Libvirt on the destination host. The
-       instance can also be restarted by Nova in the event of a compute host
-       crash or reboot for the exact same reason.
 
 Users are able to choose what level they require on their instance by selecting
 a flavor that sets the new ``hw:tpm_secret_security`` flavor extra spec.  If no
@@ -194,11 +187,9 @@ to match the driver capabilities.
 The behavior of an instance during live migration is defined by its persisted
 embedded flavor ``hw:tpm_secret_security`` extra spec. Instances with ``user``
 cannot be live migrated. For instances with ``host``, the source compute host
-reads the secret from Libvirt and sends it over RPC to the destination. For
-instances with ``deployment``, the destination host downloads the secret from
-Barbican and defines it in Libvirt. Because the instance's
-``hw:tpm_secret_security`` value translates to a required trait, it's
-guaranteed that the destination host chosen for live migration supports
+reads the secret from Libvirt and sends it over RPC to the destination. Because
+the instance's ``hw:tpm_secret_security`` value translates to a required trait,
+it's guaranteed that the destination host chosen for live migration supports
 whatever behavior the instance requires.
 
 Alternatives
@@ -238,15 +229,11 @@ Security impact
 ---------------
 
 The main security consequences of this spec are the implications of the
-``host`` and ``deployment`` values of ``hw:tpm_secret_security``.
+``host`` value of ``hw:tpm_secret_security``.
 
 In the ``host`` case, anyone with sufficient access to the compute host can
 read vTPM secrets. While this is not great, it's also something the user opts
 in to, and the compute host are assumed to be secured by the cloud operator.
-
-In the ``deployment`` case, a compromise of the Nova service user leads to an
-exposure of all vTPM secrets. Once again, this is something the user opts in
-to, and the Nova service user is assumed to be secure.
 
 Notifications impact
 --------------------
@@ -283,13 +270,13 @@ service version of the deployment is the upgraded version. The cloud must be
 fully upgraded.
 
 Deployers must create flavor(s) with the ``hw:tpm_secret_security`` extra spec
-set to ``host`` or ``deployment`` in order to enable creation of instances with
-the respective TPM secret security policies.
+set to ``host`` in order to enable creation of instances with the respective
+TPM secret security policies.
 
 Any instances without this set are pre-existing instances and for simplicity,
 they will not be migrated. If a user would like to opt-in to live migration,
 they can resize their pre-existing instance to a flavor that has the
-``hw:tpm_secret_security`` extra spec set to ``host`` or ``deployment``.
+``hw:tpm_secret_security`` extra spec set to ``host``.
 
 Automatic migration of pre-existing instances into TPM secret security
 policies could be discussed and considered as future work.
@@ -323,9 +310,8 @@ Work Items
 * Modify the resize code to handle TPM secret security policy conversions
   including absence of TPM secret security policy for pre-existing instances
 * Bump the service version
-* Modify the existing API block to only allow live migration of ``host`` or
-  ``deployment`` instances once the minimum service version has reached the
-  bumped version
+* Modify the existing API block to only allow live migration of ``host``
+  instances once the minimum service version has reached the bumped version
 * Add a whitebox/integration test
 * Add regular Tempest tests if possible
 * Update the documentation

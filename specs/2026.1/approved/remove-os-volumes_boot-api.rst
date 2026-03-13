@@ -31,11 +31,11 @@ Proposed change
 ===============
 
 The ``/os-volumes_boot`` API and child APIs will be modified so that it returns
-``HTTP 410 (Gone)`` for all resources starting from a new API microversion.
-While the API will continue to work for older microversions, we will mark
-the method with the ``nova.api.openstack.wsgi.removed`` decorator to indicate
-that automatic client and documentation generation tooling should ignore the
-API.
+``HTTP 404 (Not Found)`` for all resources starting from a new API
+microversion. While the API will continue to work for older microversions, we
+will mark the method with the ``nova.api.openstack.wsgi.removed`` decorator to
+indicate that automatic client and documentation generation tooling should
+ignore the API.
 
 Alternatives
 ------------
@@ -52,8 +52,8 @@ None.
 REST API impact
 ---------------
 
-The ``/os-volumes_boot`` API all all child APIs will return HTTP 410 (Gone)
-starting in the new API microversion.
+The ``/os-volumes_boot`` API all all child APIs will return ``HTTP 404 (Not
+Found)`` starting in the new API microversion.
 
 Security impact
 ---------------
